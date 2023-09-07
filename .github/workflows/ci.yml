@@ -18,10 +18,12 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        python-version: [3.9,3.10,3.11]
+        python-version: ["3.9","3.10","3.11"]
     services:
       clamav:
         image: gcr.io/sre-docker-registry/github.com/uktrade/docker-clamav:master
+        ports:
+          - 3310:3310
         env:
           MIRROR_URL: db.local.clamav.net
       
@@ -52,7 +54,7 @@ jobs:
         run: |
           for i in `seq 1 20`;
           do
-              result=$(echo "PING" | nc 127.0.0.1 3310)
+              result=$(echo PING | nc localhost 3310)
               
               if [ "$result" == "PONG" ]; then
                   echo $result
@@ -62,6 +64,7 @@ jobs:
               echo -n .
               sleep 1
           done
+          exit 0
           echo Failed waiting for clamav && exit 1
 
       - name: Run unit tests
