@@ -4,7 +4,6 @@ import json
 import unittest
 from io import BytesIO
 from unittest import mock
-from flask_testing.utils import multiprocessing
 import requests
 import logging
 
@@ -23,10 +22,6 @@ EICAR_TEST_OUTPUTS = (
     "Eicar-Test-Signature",
     "Win.Test.EICAR_HDB-1",
 )
-
-# Prevent error when running tests 
-# on MacOS https://github.com/pytest-dev/pytest-flask/issues/104 
-multiprocessing.set_start_method("fork")
 
 
 def _get_auth_header(username, password):
