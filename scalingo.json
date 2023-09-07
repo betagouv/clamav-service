@@ -1,0 +1,18 @@
+{
+  "name": "ClamAV Service",
+  "description": "A minimal ClamD REST interface",
+  "logo": "https://www.clamav.net/assets/clamav-trademark.png",
+  "repository": "https://github.com/betagouv/clamav-service",
+  "website": "https://beta.gouv.fr",
+  "env": {
+    "APP_CONFIG": {
+      "description": "Configuration du service",
+      "value": "config.ProductionConfig"
+    },
+    "APPLICATION_USERS": {
+      "description": "À modifier après le déploiement, ceux sont les mêmes que la CI",
+      "value": "app1::$pbkdf2-sha256$29000$LiWkFELo3TvHGANACAGAkA$Re51NLQNiCYy0UAdnFbNfLltFDmiJOOzqjMPFRVBgMM"
+    }
+  }
+}
+
