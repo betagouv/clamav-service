@@ -27,7 +27,6 @@ jobs:
       
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -38,8 +37,6 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r ./requirements.txt
-
-      - name: Run ClamAV
 
       - name: Wait up to 120 seconds for clamav container to start
         run: |
