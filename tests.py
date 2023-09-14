@@ -168,7 +168,7 @@ class ClamAVRESTV2ScanTestCase(unittest.TestCase):
         clamav_rest.app.config['TESTING'] = True
         self.app = clamav_rest.app.test_client()
 
-    def test_encrypyed_archive(self):
+    def test_encrypted_archive(self):
         response = self.app.post("/v2/scan",
                                  headers=_get_auth_header("app1", "letmein"),
                                  content_type='multipart/form-data',
@@ -180,6 +180,32 @@ class ClamAVRESTV2ScanTestCase(unittest.TestCase):
 
         self.assertEqual(data["malware"], True)
         self.assertEqual(data["reason"], "Heuristics.Encrypted.Zip")
+
+    def test_xls(self):
+        response = self.app.post("/v2/scan",
+                                 headers=_get_auth_header("app1", "letmein"),
+                                 content_type='multipart/form-data',
+                                 data=_read_file_data(
+                                     "client-examples/eicar-excel-macro-powershell-echo.xls")
+                                 )
+
+        data = json.loads(response.data.decode('utf8'))
+
+        self.assertEqual(data["malware"], True)
+        self.assertEqual(data["reason"], "Doc.Dropper.Agent-6488415-0")
+
+    def test_another_xls(self):
+        response = self.app.post("/v2/scan",
+                                 headers=_get_auth_header("app1", "letmein"),
+                                 content_type='multipart/form-data',
+                                 data=_read_file_data(
+                                     "client-examples/eicar-excel-dde-cmd-powershell-echo.xls")
+                                 )
+
+        data = json.loads(response.data.decode('utf8'))
+
+        self.assertEqual(data["malware"], True)
+        self.assertEqual(data["reason"], "Doc.Dropper.Agent-6488415-0")
 
     def test_eicar(self):
         response = self.app.post("/v2/scan",
