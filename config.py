@@ -10,7 +10,8 @@ class BaseConfig(object):
     APPLICATION_USERS = os.environ.get("APPLICATION_USERS", {})
     SENTRY_DSN = os.environ.get("SENTRY_DSN", "")
     CLAMAV_TXT_URI = "current.cvd.clamav.net"
-    CLAMD_SOCKET = os.environ.get("CLAMD_SOCKET", "/app/run/clamd.sock")
+    CLAMD_HOST = "localhost"
+    CLAMD_PORT = 3310
     HOST = "0.0.0.0"
     PORT = int(os.environ.get("PORT", "8090"))
     MAX_CONTENT_LENGTH = int(
@@ -19,6 +20,7 @@ class BaseConfig(object):
 
 
 class ProductionConfig(BaseConfig):
+    CLAMD_SOCKET = os.environ.get("CLAMD_SOCKET", "/app/run/clamd.sock")
     CLAMD_HOST = os.environ.get("CLAMD_HOST", "clamav")
 
 

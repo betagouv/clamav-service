@@ -6,7 +6,7 @@ services:
     volumes:
       - ./docker/default-nginx-site.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - 8000:80
+      - 3320:80
     links:
       - clamav_rest:clamav_rest
   clamav_rest:
